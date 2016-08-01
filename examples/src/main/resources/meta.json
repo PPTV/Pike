@@ -1,0 +1,17 @@
+[
+  {
+    "name": "dol_smart",
+    "columns":[
+      {"name":"channel", "type":"Long"},
+      {"name":"vvid", "type":"String"},
+      {"name":"user", "type":"String"}
+    ]
+  },
+  {
+    "name": "dol_client",
+    "columns":[
+      {"name":"col1", "type":"Int"},
+      {"name":"col2", "type":"Double"}
+    ]
+  }
+]

@@ -1,0 +1,45 @@
+#!/bin/sh
+
+if [ -e  ~/.bashrc ]
+then
+    source ~/.bashrc
+fi
+
+if [ -e  ~/.bash_profile ]
+then
+    source ~/.bash_profile
+fi
+
+if [ "x$PIKE_HOME" == "x" ]
+then
+    export PIKE_HOME=$(cd `dirname "$0"`/.. ; pwd)
+fi
+echo "Pike home:"$PIKE_HOME
+
+PIKE_CLASS=com.pplive.pike.Program
+PIKE_JAR=$PIKE_HOME/pike.jar
+
+CLASSPATH=$PIKE_HOME/lib/*:$PIKE_HOME/pike.jar
+CLASSPATH_WITHSTORM=$CLASSPATH:$PIKE_HOME/lib/storm/*
+
+COMMAND=$1
+
+if [ "$COMMAND" = "exec" ] || [ "$COMMAND" = "-exec" ]; then
+        storm jar $PIKE_JAR $PIKE_CLASS "$@"
+
+        RESULT=$?
+        if [ "$RESULT" != 0 ]; then
+                echo "there was error."
+        fi
+
+        exit $?
+else
+        java -classpath "$CLASSPATH_WITHSTORM" "$PIKE_CLASS" "$@"
+
+        RESULT=$?
+        if [ "$RESULT" != 0 ]; then
+                echo "there was error."
+        fi
+
+        exit $?
+fi

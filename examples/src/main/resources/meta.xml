@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tables>
+    <table>
+        <name>dol_smart</name>
+        <columns>
+            <column>
+                <name>channel</name>
+                <type>Long</type>
+            </column>
+            <column>
+                <name>vvid</name>
+                <type>String</type>
+            </column>
+            <column>
+                <name>user</name>
+                <type>String</type>
+            </column>
+         </columns>
+    </table>
+    <table>
+        <name>dol_client</name>
+        <columns>
+            <column>
+                <name>col1</name>
+                <type>Int</type>
+            </column>
+            <column>
+                <name>col2</name>
+                <type>Double</type>
+            </column>
+        </columns>
+    </table>
+</tables>

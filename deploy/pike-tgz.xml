@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<assembly>
+  <id>pike</id>
+  <formats>
+    <format>tar.gz</format>
+  </formats>
+  <fileSets>
+	<fileSet>
+      <directory>bin/</directory>
+      <outputDirectory>bin/</outputDirectory>
+      <fileMode>0755</fileMode>
+      <directoryMode>0755</directoryMode>
+    </fileSet>
+	<fileSet>
+      <directory>/</directory>
+      <outputDirectory>/</outputDirectory>
+	  <excludes>
+		<exclude>bin/*</exclude>
+		<exclude>*.tar.gz</exclude>
+	  </excludes>
+      <fileMode>0664</fileMode>
+      <directoryMode>0777</directoryMode>
+    </fileSet>
+  </fileSets>
+</assembly>

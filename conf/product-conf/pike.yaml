@@ -1,0 +1,79 @@
+# pike configuration
+
+pike.schema.thrift.url: "http://api.bip.idc.pplive.cn/bip.appserver/pike"
+
+pike.message.timeout_after_period.seconds: 30
+
+pike.topogenerate.trident.parallelismhint: 1
+
+pike.spout.tasks: 1
+pike.spout.kafka.zookeeper.servers: "zk1.zookeeper.idc.pplive.cn:2181,zk2.zookeeper.idc.pplive.cn:2181,zk3.zookeeper.idc.pplive.cn:2181/Apps/kafka"
+pike.spout.kafka.zookeeper.session.timeout.ms: 60000
+pike.spout.rabbitmq.host: "dac.rabbitmq.idc.pplive.cn"
+pike.spout.rabbitmq.port: 5672
+pike.spout.rabbitmq.username: "bip"
+pike.spout.rabbitmq.password: "bip"
+pike.spout.rabbitmq.vhost: "bip"
+pike.spout.rabbitmq.prefetch.count: 100
+pike.spout.rabbitmq.data.charset: "utf-8"
+pike.spout.rabbitmq.data.field_separator: "\t"
+pike.spout.rabbitmq.print_queuedata: false
+pike.spout.rabbitmq.print_emitdata: false
+pike.spout.rabbitmq.data.timeout.milliseconds: 5000
+pike.spout.rabbitmq.check_topologyself_killed: true
+pike.spout.rabbitmq.check_killed.interval_seconds: 15
+
+pike.output.classes: "com.pplive.pike.exec.output.HDFSStorage"
+
+pike.output.check_topologyself_killed: true
+pike.output.check_min_period_seconds: 15
+pike.spout.rabbitmq.exchange_name: ""
+pike.spout.rabbitmq.routing_key: ""
+pike.spout.rabbitmq.reconnect_waitseconds: 10
+
+pike.output.first_period_output: false
+pike.output.last_period_output: false
+pike.output.targets.default: ["console.local"]
+
+pike.output.rolling.header: true
+
+pike.output.console.className: "com.pplive.pike.exec.output.ConsoleOutput"
+
+pike.output.file.className: "com.pplive.pike.exec.output.TextFileOutput"
+pike.output.file.single: false
+pike.output.file.suffix: ""
+pike.output.file.field_separator: "\t"
+pike.output.file.data_separator: "\n"
+
+pike.output.hdfs.className: "com.pplive.pike.exec.output.HDFSOutput"
+pike.output.hdfs.host: "hdfs://SHBNJ-BIPNN-HADOOP-10-32.idc.pplive.cn:9000/"
+pike.output.hdfs.path: "/bip/data/dbfile"
+pike.output.hdfs.localPath: "/home/pplive/data/storm"
+pike.output.hdfs.suffix: "csv"
+pike.output.hdfs.field_separator: "\t"
+pike.output.hdfs.data_separator: "\n"
+pike.output.hdfs.compressed: true
+
+
+pike.output.fs.path: "/home/pplive/platform/pike-output"
+
+pike.output.jdbc.className: "com.pplive.pike.exec.output.JdbcOutput"
+pike.output.jdbc.driverClassName: "com.mysql.jdbc.Driver"
+pike.output.jdbc.dbUser: "test"
+pike.output.jdbc.dbPassword: "123456"
+pike.output.jdbc.dbUrl: "jdbc:mysql://10.208.4.7:3307/pplive_online_pike?useUnicode=true&amp;characterEncoding=utf-8"
+
+pike.output.sqlserverbulk.className: "com.pplive.pike.exec.output.SQLServerBulkOutput"
+pike.output.sqlserverbulk.driverClassName: "net.sourceforge.jtds.jdbc.Driver"
+pike.output.sqlserverbulk.dbUser: "bip_server"
+pike.output.sqlserverbulk.dbPassword: "aD%$234ASdd"
+pike.output.sqlserverbulk.dbUrl: "jdbc:jtds:sqlserver://sqlserver.bip.idc.pplive.cn:1433;databaseName=v1_bip_data;"
+pike.output.sqlserverbulk.winBulkPath: "\\\\10.208.10.83\\pplive"
+pike.output.sqlserverbulk.linuxDBFilePath: "/home/pplive/data/dbfile"
+
+pike.output.hbase.className: "com.pplive.pike.exec.output.HBaseOutput"
+
+pike.cloudplay.ip.dictionary.dir: "cloudPlayIpLibrary"
+pike.cloudplay.ip.sync.interval.minutes: "1440"
+
+kafka.metadata.broker.list: "bk0.kafka.idc.pplive.cn:9092,bk1.kafka.idc.pplive.cn:9092,bk2.kafka.idc.pplive.cn:9092"

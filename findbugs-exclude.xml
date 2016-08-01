@@ -1,0 +1,8 @@
+<FindBugsFilter>
+    <Match>
+        <Package name="~com.pplive.bip.pike.thriftgen.*"/>
+    </Match>
+    <Match>
+         <Bug pattern="NP_ALWAYS_NULL"/> 
+    </Match>
+</FindBugsFilter>

@@ -1,0 +1,72 @@
+# pike configuration
+
+pike.schema.thrift.url: "http://172.16.10.7:8081/bip.appserver/pike"
+
+pike.message.timeout_after_period.seconds: 30
+
+pike.topogenerate.trident.parallelismhint: 1
+
+pike.spout.tasks: 1
+pike.spout.rabbitmq.host: "172.16.10.132"
+pike.spout.rabbitmq.port: 5672
+pike.spout.rabbitmq.username: "guest"
+pike.spout.rabbitmq.password: "guest"
+pike.spout.rabbitmq.vhost: "/"
+pike.spout.rabbitmq.prefetch.count: 100
+pike.spout.rabbitmq.data.charset: "utf-8"
+pike.spout.rabbitmq.data.field_separator: "\t"
+pike.spout.rabbitmq.print_queuedata: false
+pike.spout.rabbitmq.print_emitdata: false
+pike.spout.rabbitmq.data.timeout.milliseconds: 500
+pike.spout.rabbitmq.check_topologyself_killed: true
+pike.spout.rabbitmq.check_killed.interval_seconds: 15
+pike.spout.rabbitmq.exchange_name: ""
+pike.spout.rabbitmq.routing_key: ""
+pike.spout.rabbitmq.reconnect_waitseconds: 10
+
+pike.output.check_topologyself_killed: true
+pike.output.check_min_period_seconds: 15
+pike.output.first_period_output: false
+pike.output.last_period_output: false
+pike.output.targets.default: ["console.local"]
+
+pike.output.rolling.header: true
+
+pike.output.console.className: "com.pplive.pike.exec.output.ConsoleOutput"
+
+pike.output.file.className: "com.pplive.pike.exec.output.TextFileOutput"
+pike.output.file.single: false
+pike.output.file.suffix: ""
+pike.output.file.field_separator: "\t"
+pike.output.file.data_separator: "\n"
+
+pike.output.hdfs.className: "com.pplive.pike.exec.output.HDFSOutput"
+pike.output.hdfs.host: "hdfs://namenode:9000/"
+pike.output.hdfs.path: "/bip/data/dbfile"
+pike.output.hdfs.localPath: "/home/pplive/data/storm"
+pike.output.hdfs.suffix: "csv"
+pike.output.hdfs.field_separator: "\t"
+pike.output.hdfs.data_separator: "\n"
+pike.output.hdfs.compressed: true
+
+pike.output.fs.path: "/temp/storm"
+
+pike.output.jdbc.className: "com.pplive.pike.exec.output.JdbcOutput"
+pike.output.jdbc.driverClassName: "com.mysql.jdbc.Driver"
+pike.output.jdbc.dbUser: "test"
+pike.output.jdbc.dbPassword: "123456"
+pike.output.jdbc.dbUrl: "jdbc:mysql://localhost:3306/pplive_online?useUnicode=true&amp;characterEncoding=utf-8"
+pike.output.jdbc.batchinsert.maxcount: 200
+
+pike.output.sqlserverbulk.className: "com.pplive.pike.exec.output.SQLServerBulkOutput"
+pike.output.sqlserverbulk.driverClassName: "net.sourceforge.jtds.jdbc.Driver"
+pike.output.sqlserverbulk.dbUser: "bip"
+pike.output.sqlserverbulk.dbPassword: "bip"
+pike.output.sqlserverbulk.dbUrl: "jdbc:jtds:sqlserver://172.16.10.3:1433;databaseName=v1_bip_data;"
+pike.output.sqlserverbulk.winBulkPath: "\\\\172.16.10.7\\test-namenode"
+pike.output.sqlserverbulk.linuxDBFilePath: "/home/pplive/data/dbfile"
+
+pike.output.hbase.className: "com.pplive.pike.exec.output.HBaseOutput"
+
+pike.cloudplay.ip.dictionary.dir: "cloudPlayIpLibrary"
+pike.cloudplay.ip.sync.interval.minutes:"1440"

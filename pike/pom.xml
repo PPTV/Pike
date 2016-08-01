@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.pplive</groupId>
+        <artifactId>storm.pike</artifactId>
+        <version>0.3.4</version>
+    </parent>
+
+    <artifactId>pike</artifactId>
+    <name>pike</name>
+    <packaging>jar</packaging>
+
+    <properties>
+        <pike_source_root>${project.basedir}</pike_source_root>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-thrift-code</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <exec dir="${pike_source_root}/../thrift"
+                                      executable="${pike_source_root}/../thrift/${thrift.script}">
+                                </exec>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-buildmeta-code</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <echo file="${pike_source_root}/src/main/java/com/pplive/pike/BuildInfo.java"
+                                      append="false">
+                                    package com.pplive.pike;
+                                    class BuildInfo {
+                                    public static final String BuildVersion = &quot;${project.version}&quot;;
+                                    public static final String BuildType = &quot;${buildType}&quot;;
+                                    public static final String BuildTime = &quot;${maven.build.timestamp}&quot;;
+                                    public static final String BuildMachine = &quot;${env.COMPUTERNAME}&quot;;
+                                    public static final String BuildBy = &quot;${env.USERNAME}&quot;;
+                                    }
+                                </echo>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>compile</includeScope>
+                            <includeScope>runtime</includeScope>
+                            <excludeArtifactIds>junit</excludeArtifactIds>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

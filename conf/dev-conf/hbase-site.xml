@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!-- /** * Copyright 2010 The Apache Software Foundation * * Licensed to 
+	the Apache Software Foundation (ASF) under one * or more contributor license 
+	agreements. See the NOTICE file * distributed with this work for additional 
+	information * regarding copyright ownership. The ASF licenses this file * 
+	to you under the Apache License, Version 2.0 (the * "License"); you may not 
+	use this file except in compliance * with the License. You may obtain a copy 
+	of the License at * * http://www.apache.org/licenses/LICENSE-2.0 * * Unless 
+	required by applicable law or agreed to in writing, software * distributed 
+	under the License is distributed on an "AS IS" BASIS, * WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. * See the License for 
+	the specific language governing permissions and * limitations under the License. 
+	*/ -->
+<configuration>
+	<property>
+		<name>hbase.rootdir</name>
+		<value>hdfs://yarn:9000/hbase</value>
+	</property>
+	<property>
+		<name>hbase.cluster.distributed</name>
+		<value>true</value>
+		<description>The mode the cluster will be in. Possible values are
+			false: standalone and pseudo-distributed setups with managed
+			Zookeeper
+			true: fully-distributed with unmanaged Zookeeper Quorum (see
+			hbase-env.sh)
+		</description>
+	</property>
+	<property>
+		<name>hbase.zookeeper.quorum</name>
+		<value>yarn,yarn-datanode1,yarn-datanode2</value> 
+	</property>
+	<property>
+		<name>hbase.root.logger</name>
+		<value>/home/pplive/logs/hbase</value>
+	</property>
+	<property>
+		<name>hbase.zookeeper.property.dataDir</name>
+		<value>/home/pplive/platform/hbase/zookeeper</value>
+	</property>
+	<property>
+		<name>hbase.master.port</name>
+		<value>60000</value>
+		<description>The port master should bind to.</description>
+	</property>
+	<property>
+		<name>hbase.master.info.port</name>
+		<value>60010</value>
+		<description>The port for the hbase master web UI Set to -1 if you do
+			not want the info server to run.
+		</description>
+	</property>
+	<property>
+		<name>hbase.regionserver.handler.count</name>
+		<value>100</value>
+		<description>Count of RPC Server instances spun up on RegionServers
+			Same property is used by the Master for count of master handlers.
+			Default is 10.
+		</description>
+	</property>
+
+	<property>
+		<name>hfile.format.version</name>
+		<value>1</value>
+	</property>
+</configuration>

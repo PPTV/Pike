@@ -1,0 +1,24 @@
+<iplibApi>
+	<defaultiplib>
+		<name>pplive</name>
+		<file>/home/pplive/platform/config/cloudPlayIpLibrary/pplive-iplib-cn.gz</file>
+		<updateType>time</updateType>
+		<updateURL>http://ip.synacast.com/ipfile/pplive-iplib-cn.gz</updateURL>
+	</defaultiplib>
+	<iplib>
+		<name>ad</name>
+		<file>/home/pplive/platform/config/cloudPlayIpLibrary/ad-iplib-cn.gz</file>
+		<updateType>md5</updateType>
+		<updateURL>http://ip.synacast.com/ipfile/ad-iplib-cn.gz</updateURL>
+	</iplib>
+	<combine>
+		<!-- Character "&" in url must be replaced as "&amp;" -->
+		<areacodeurl>http://oss.synacast.com/GetAppConfig.s?hostName=10.70.150.55&amp;appCode=web_cdn_country_code</areacodeurl>
+		<areacodefile>/home/pplive/platform/config/cloudPlayIpLibrary/country_cn.txt</areacodefile>
+		<transcodeurl>http://oss.synacast.com/GetAppConfig.s?hostName=10.70.150.55&amp;appCode=web_cdn_country_code_group</transcodeurl>
+		<transcodefile>/home/pplive/platform/config/cloudPlayIpLibrary/transcode_other.txt</transcodefile>
+		<iplibfile>/home/pplive/platform/config/cloudPlayIpLibrary/pplive-iplib-cn.gz</iplibfile>
+		<webcdnfile>/home/pplive/platform/config/cloudPlayIpLibrary/PPLive_IPLib_20130812_utf8_geo.txt</webcdnfile>
+		<dacfile>/home/pplive/platform/config/cloudPlayIpLibrary/PPLive_IPLib_20130812_utf8_dac.txt</dacfile>
+	</combine>
+</iplibApi>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!-- Licensed under the Apache License, Version 2.0 (the "License"); you 
+	may not use this file except in compliance with the License. You may obtain 
+	a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless 
+	required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. 
+	See accompanying LICENSE file. -->
+<!-- Put site-specific property overrides in this file. -->
+<configuration>
+  <property>
+    <name>dfs.nameservices</name>
+    <value>testcluster</value>
+  </property>
+  <property>
+    <name>dfs.ha.namenodes.testcluster</name>
+    <value>nn1,nn2</value>
+  </property>
+  <property>
+    <name>dfs.namenode.rpc-address.testcluster.nn1</name>
+    <value>namenode.pplive.com:9000</value>
+  </property>
+  <property>
+    <name>dfs.namenode.rpc-address.testcluster.nn2</name>
+    <value>datanode1.pplive.com:9000</value>
+  </property>
+  <property>
+    <name>dfs.namenode.http-address.testcluster.nn1</name>
+    <value>namenode.pplive.com:50070</value>
+  </property>
+  <property>
+    <name>dfs.namenode.http-address.testcluster.nn2</name>
+    <value>datanode1.pplive.com:50070</value>
+  </property>
+  <property>
+    <name>dfs.namenode.shared.edits.dir</name>
+    <value>qjournal://namenode.pplive.com:8485;datanode1.pplive.com:8485/testcluster</value>
+  </property>
+  <property>
+    <name>dfs.client.failover.proxy.provider.testcluster</name>
+    <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+  </property>
+  <property>
+    <name>dfs.ha.fencing.methods</name>
+    <value>sshfence(pplive:2200)</value>
+  </property>
+  <property>
+    <name>dfs.ha.fencing.ssh.private-key-files</name>
+    <value>/home/pplive/.ssh/id_rsa</value>
+  </property>
+  <property>
+    <name>dfs.journalnode.edits.dir</name>
+    <value>/home/logs/data/hadoop/journal</value>
+  </property>
+  <property>
+    <name>dfs.ha.automatic-failover.enabled</name>
+    <value>true</value>
+ </property>
+  <property>
+    <name>dfs.replication</name>
+    <value>2</value>
+  </property>
+  <property>
+    <name>dfs.name.dir</name>
+    <value>/home/pplive/hard_disk/1</value>
+  </property>
+  <property>
+    <name>dfs.namenode.secondary.http-address</name>
+    <value>datanode1.pplive.com:50090</value>
+  </property>
+  <property>
+    <name>dfs.data.dir</name>
+    <value>/home/pplive/hard_disk/1/hdfs</value>
+  </property>
+  <property>
+    <name>dfs.permissions</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>dfs.blocksize</name>
+    <value>64m</value>
+  </property>
+  <property>
+    <name>dfs.datanode.du.reserved</name>
+    <value>10737418240</value>
+  </property>
+  <property>
+    <name>dfs.datanode.handler.count</name>
+    <value>5</value>
+  </property>
+  <property>
+    <name>dfs.datanode.max.xcievers</name>
+    <value>8192</value>
+  </property>
+  <property>
+    <name>dfs.datanode.socket.write.timeout</name>
+    <value>0</value>
+  </property>
+  <property>
+    <name>dfs.datanode.balance.bandwidthPerSec</name>
+    <value>104857600</value>
+    <description>
+			Specifies the maximum amount of bandwidth that each
+			datanode
+			can utilize for the balancing purpose in term of
+			the number of
+			bytes per second.
+		</description>
+  </property>
+  <property>
+    <name>dfs.hosts.exclude</name>
+    <value>/usr/local/hadoop/etc/hadoop/dfs.hosts.exclude</value>
+    <description>Names a file that contains a list of hosts that are
+			not
+			permitted to connect to the namenode. The full pathname of the
+			file
+			must be specified. If the value is empty, no hosts are
+			excluded.
+		</description>
+  </property>
+</configuration>

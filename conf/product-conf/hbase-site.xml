@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property>
+            <name>hbase.rootdir</name>
+            <value>hdfs://hbasecluster/hbase</value>
+    </property>
+      <property>
+        <name>hbase.cluster.distributed</name>
+        <value>true</value>
+        <description>The mode the cluster will be in. Possible values are
+                false: standalone and pseudo-distributed setups with managed Zookeeper
+                true: fully-distributed with unmanaged Zookeeper Quorum (see hbase-env.sh)
+        </description>
+    </property>
+    <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>zk1.zookeeper.idc.pplive.cn,zk2.zookeeper.idc.pplive.cn,zk3.zookeeper.idc.pplive.cn,zk4.zookeeper.idc.pplive.cn,zk5.zookeeper.idc.pplive.cn</value>
+    </property>
+    <property>
+        <name>zookeeper.znode.parent</name>
+        <value>/Apps/hbasecluster</value>
+    </property>
+    <property>
+        <name>hbase.master.port</name>
+        <value>60000</value>
+        <description>The port master should bind to.</description>
+    </property>
+    <property>
+        <name>hbase.master.info.port</name>
+        <value>60010</value>
+        <description>The port for the hbase master web UI Set to -1 if you do not want the info server to run.</description>
+    </property>
+    <property>		
+	<name>hbase.regionserver.handler.count</name>		
+	<value>100</value>		
+	<description>Count of RPC Server instances spun up on RegionServers			
+			Same property is used by the Master for count of master handlers.			
+		Default is 10.		
+	</description>	
+    </property>
+    <property>    
+	<name>zookeeper.session.timeout</name>    
+	<value>180000</value>    
+	<description>ZooKeeper session timeout.      
+	HBase passes this to the zk quorum as suggested maximum time for a      
+	session.  See http://hadoop.apache.org/zookeeper/docs/current/zookeeperProgrammers.html#ch_zkSessions      
+	"The client sends a requested timeout, the server responds with the      
+	timeout that it can give the client. "      In milliseconds.    
+	</description>  
+   </property>
+
+   <property>
+	<name>hbase.client.scanner.timeout.period</name>
+        <value>180000</value>
+   </property>
+	
+<property>
+    <name>hbase.hregion.memstore.mslab.enabled</name>
+    <value>true</value>
+    <description>
+      update 20130228
+      Experimental: Enables the MemStore-Local Allocation Buffer,
+      a feature which works to prevent heap fragmentation under
+      heavy write loads. This can reduce the frequency of stop-the-world
+      GC pauses on large heaps.
+    </description>
+  </property>
+
+</configuration>

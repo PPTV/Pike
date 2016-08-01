@@ -1,0 +1,12 @@
+classes
+target
+.idea
+*.iml
+thriftgen
+buildInfo.java
+*.settings
+*.project
+*.classpath
+*.rar
+.arc
+tmp

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<functions>
+	<!-- 
+    <classes>
+        <name>class1</name>
+    </classes> -->
+    <packages>
+        <name>com.pplive.pike.expression</name>
+        <name>com.pplive.pike.udf</name>
+    </packages>
+</functions>

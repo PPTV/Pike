@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<functions>
+    <classes>
+        <name>storm.trident.operation.builtin.Sum</name>
+        <name>storm.trident.operation.builtin.Count</name>
+    </classes>
+   <!--  <packages>
+        <name>com.pplive.bip.storm.expression</name>
+        <name>com.pplive.bip.storm.udf</name>
+    </packages> -->
+</functions>
