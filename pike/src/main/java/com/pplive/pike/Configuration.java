@@ -283,7 +283,8 @@ public class Configuration extends Config {
 	public static final String OutputDefaultTargets = "pike.output.targets.default"; // list
 																						// of
 																						// string
-
+	public static final String OutputTargetName = "pike.output.target.name";
+	public static final String OutputClassName = "pike.out.class.name";
 	public static final String OutputRollingHeader = "pike.output.rolling.header"; // boolean
 	public static final String OutputFileSuffix = "pike.output.file.suffix"; // string
 	public static final String OutputFileSingle = "pike.output.file.single"; // boolean

@@ -66,7 +66,8 @@ class ConstantExpressionParser implements ExpressionVisitor {
 
 	@Override
 	public void visit(JdbcNamedParameter jdbcNamedParameter) {
-
+		addError(new IllegalStateException("should never happen"));
+		this._parsedExpr = null;
 	}
 
 	public void visit(BooleanValue booleanValue) {

@@ -24,7 +24,7 @@ import com.pplive.pike.Configuration;
 import com.pplive.pike.base.ISizeAwareIterable;
 import com.pplive.pike.util.Path;
 
-class TextFileOutput implements IPikeOutput {
+public class TextFileOutput implements IPikeOutput {
 
 	public static final Logger log = LoggerFactory.getLogger(TextFileOutput.class);
 	

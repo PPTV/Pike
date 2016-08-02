@@ -38,6 +38,7 @@ public class TopologyOutputManager {
     private final boolean _checkSelfKilled;
     private final int _checkMinPeriodSeconds;
 	private final boolean _outputLastPeriod;
+	//private final IPikeOutput _output;
 
 	private final String _topologyName;
 	private final String _topologyId;
@@ -122,6 +123,16 @@ public class TopologyOutputManager {
             outputTuples.add(tempResult);
         }
 
+		if (validateOutputClass()) {
+			String className = (String) this._conf.get(Configuration.OutputClassName);
+			String targetName = Configuration.getString(this._conf, Configuration.OutputTargetName);
+			IPikeOutput out = createOutput(className);
+			outputPeriodResult(out, targetName, outputTuples, this._baseProcessPeriod, basePeriodEnd);
+
+		}
+
+
+
         int nOutput = 0;
         for (OutputTarget t : outputTargets) {
             OutputContext outputCtx = outputContexts.get(nOutput);
@@ -136,35 +147,53 @@ public class TopologyOutputManager {
                 }
             }
 
-            IPikeOutput output = this.createOutput(t);
+			String outputClassKey = String.format("pike.output.%s.className", t
+					.getType().toString().toLowerCase());
+			String outputClassName = (String) this._conf.get(outputClassKey);
+			if (StringUtils.isEmpty(outputClassName)) {
+				throw new RuntimeException(String.format(
+						"set key %s value in pike.yaml ", outputClassKey));
+			}
+            IPikeOutput output = this.createOutput(outputClassName);
 			if (output == null) {
 				continue;
 			}
-			output.init(this._conf, this._outputSchema, t.getTargetName(), t.getOutputPeriod());
+			outputPeriodResult(output, t.getTargetName(), outputTuples, t.getOutputPeriod(), basePeriodEnd);
+		}
+	}
+
+
+	private  void outputPeriodResult(IPikeOutput output, String targetName,  ArrayList<List<Object>> outputTuples, Period period, Calendar periodEnd) {
+		output.init(this._conf, this._outputSchema,targetName, period);
+		try {
+			output.write(periodEnd, SizeAwareIterable.of(outputTuples));
+		} finally {
 			try {
-				output.write(basePeriodEnd, SizeAwareIterable.of(outputTuples));
-			} finally {
-                try
-                {
-				    output.close();
-                } catch(IOException e) {
-                    log.error("close output error: ", e);
-                }
+				output.close();
+			} catch(IOException e) {
+				log.error("close output error: ", e);
 			}
 		}
 	}
+
+
 
 	private boolean isTopologyKilled() {
 		return this._pikeTopologyClient.checkTopologyKilled(this._topologyId,
 				false, false);
 	}
 
-	private static List<OutputTarget> getOutputTargets(
+	private boolean validateOutputClass() {
+		return StringUtils.isNotEmpty(Configuration.getString(_conf, Configuration.OutputClassName))
+				&& StringUtils.isNotEmpty(Configuration.getString(_conf, Configuration.OutputTargetName));
+	}
+
+	private  List<OutputTarget> getOutputTargets(
 			@SuppressWarnings("rawtypes") Map conf,
 			Iterable<OutputTarget> outputTargets, Period defaultOutputPeriod) {
 		List<OutputTarget> targets = CollectionUtil
 				.copyArrayList(outputTargets);
-		if (targets.size() == 0) {
+		if (targets.size() == 0 && validateOutputClass() == false) {
 			targets = getDefaultOutputTargets(conf, defaultOutputPeriod);
 		}
 		return targets;
@@ -213,15 +242,8 @@ public class TopologyOutputManager {
 		return new OutputTarget(outputType, s.substring(pos + 1), defaultOutputPeriod);
 	}
 
-	private IPikeOutput createOutput(OutputTarget outputTarget) {
-		String key = String.format("pike.output.%s.className", outputTarget
-				.getType().toString().toLowerCase());
+	private IPikeOutput createOutput(String outputClassName) {
 
-		String outputClassName = (String) this._conf.get(key);
-		if (StringUtils.isEmpty(outputClassName)) {
-			throw new RuntimeException(String.format(
-					"set key %s value in pike.yaml ", key));
-		}
 		Class<?> outputClass;
 		try {
 			outputClass = Class.forName(outputClassName);

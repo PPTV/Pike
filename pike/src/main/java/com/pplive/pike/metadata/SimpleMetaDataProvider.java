@@ -8,7 +8,7 @@ import java.util.HashMap;
 /**
  * Created by jiatingjin on 2016/7/26.
  */
-public class RawMetaDataProvider implements MetaDataProvider {
+public class SimpleMetaDataProvider implements MetaDataProvider {
 
     private HashMap<String, Table> tables = new HashMap<>();
 

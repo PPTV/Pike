@@ -6,6 +6,7 @@ import com.pplive.pike.PikeSqlCompiler;
 import com.pplive.pike.PikeTopology;
 import com.pplive.pike.TopologyConsoleDisplayer;
 
+import com.pplive.pike.exec.output.IPikeOutput;
 import com.pplive.pike.generator.ISpoutGenerator;
 import com.pplive.pike.generator.trident.TridentTopologyGenerator;
 import com.pplive.pike.metadata.MetaDataAdapter;
@@ -31,6 +32,7 @@ public class PikeContext {
     private String topologyName;
 
     private ISpoutGenerator spoutGenerator;
+
 
     public PikeContext(Configuration conf, MetaDataProvider metaDataSource, String sql, String topologyName, ISpoutGenerator spoutGenerator){
         this.conf = conf;

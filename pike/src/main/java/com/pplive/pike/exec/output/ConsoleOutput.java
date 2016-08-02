@@ -28,7 +28,7 @@ import com.pplive.pike.thriftgen.datatransfer.Row;
 import com.pplive.pike.thriftgen.datatransfer.TransferService;
 
 /// used for local debug/test
-class ConsoleOutput implements IPikeOutput {
+public class ConsoleOutput implements IPikeOutput {
 
 	@SuppressWarnings("rawtypes")
 	private Map _pikeOrStormConf;
