@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.pplive.pike.Configuration;
 import com.pplive.pike.base.ISizeAwareIterable;
 
-class JdbcOutput implements IPikeOutput {
+public class JdbcOutput implements IPikeOutput {
 	
 	private BasicDataSource _dataSource;
 	private String _dbTable;

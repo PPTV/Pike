@@ -27,7 +27,7 @@ import com.pplive.pike.Configuration;
 import com.pplive.pike.base.ISizeAwareIterable;
 import com.pplive.pike.util.Path;
 
-class HDFSOutput implements IPikeOutput {
+public class HDFSOutput implements IPikeOutput {
 
 	public static final Logger log = LoggerFactory.getLogger(HDFSOutput.class);
 	private static final String ZIP_CHARTSET_NAME = "GBK";

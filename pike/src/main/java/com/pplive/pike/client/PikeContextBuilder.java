@@ -1,6 +1,7 @@
 package com.pplive.pike.client;
 
 import com.pplive.pike.Configuration;
+import com.pplive.pike.exec.output.IPikeOutput;
 import com.pplive.pike.generator.ISpoutGenerator;
 import com.pplive.pike.generator.KafkaSpoutGenerator;
 import com.pplive.pike.generator.LocalTextFileSpoutGenerator;
@@ -18,6 +19,7 @@ public class PikeContextBuilder {
     private MetaDataProvider metaDataProvider;
 
     private ISpoutGenerator spoutGenerator = null;
+
 
     private String sql;
 
@@ -49,7 +51,15 @@ public class PikeContextBuilder {
         return  this;
     }
 
-    public PikeContextBuilder saveAs() {
+    /**
+     *
+     * @param outputClazz implements IPikeOutput
+     * @param outputTarget is related to output type, table name for db, dir for hdfs
+     * @return
+     */
+    public PikeContextBuilder withOutput(Class<? extends IPikeOutput> outputClazz, String outputTarget) {
+        this.conf.put(Configuration.OutputClassName, outputClazz.getCanonicalName());
+        this.conf.put(Configuration.OutputTargetName, outputTarget);
         return  this;
     }
 

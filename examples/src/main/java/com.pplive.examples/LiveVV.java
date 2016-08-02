@@ -2,6 +2,7 @@ package com.pplive.examples;
 
 import com.pplive.pike.Configuration;
 import com.pplive.pike.client.*;
+import com.pplive.pike.exec.output.ConsoleOutput;
 import com.pplive.pike.metadata.RawMetaDataProvider;
 
 class LiveVV {
@@ -27,6 +28,8 @@ class LiveVV {
 
         contextBuilder = new PikeContextBuilder(config);
         contextBuilder.withMetaDataProvider(dataSource);
+
+        contextBuilder.withOutput(ConsoleOutput.class, "local");
 
         String topologyName = "sm_live_vv_5s";
         String sql = "withperiod 5s select channel, count(*) as vv from dol_smart group by channel";
