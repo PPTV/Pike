@@ -5,6 +5,7 @@ import com.pplive.pike.client.*;
 import com.pplive.pike.exec.output.ConsoleOutput;
 import com.pplive.examples.meta.provider.MyRawMetaDataProvider;
 
+
 class LiveVV {
 
 
@@ -25,6 +26,8 @@ class LiveVV {
 
         contextBuilder = new PikeContextBuilder(config);
         contextBuilder.withMetaDataProvider(MyRawMetaDataProvider.class);
+
+        contextBuilder.withOutput(ConsoleOutput.class, "local");
 
         contextBuilder.withOutput(ConsoleOutput.class, "local");
 
