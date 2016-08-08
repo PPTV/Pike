@@ -257,40 +257,57 @@ public class Configuration extends Config {
 	public final static String TridentParallelismHint = "pike.topogenerate.trident.parallelismhint"; // integer
 
 	public static final String SpoutTaskCount = "pike.spout.tasks"; // integer
+
+
+	//metadata
+	public final static String MetaDataProviderClass = "pike.metadata.provider.class";
+	public final static String SpoutGeneratorClass = "pike.spout.generator.class";
+
+	//general spout
+	public static final String OutputFirstPeriodResult = "pike.output.first_period_output"; // boolean
+
+	//TexFileSpout
+	public final static String SpoutLocalTextFile = "pike.spout.local.textfile";
+
+	//kafka spout
 	public static final String SpoutKafkaZKServers = "pike.spout.kafka.zookeeper.servers"; //string
 	public static final String SpoutKafkaZKSessionTimeout = "pike.spout.kafka.zookeeper.session.timeout.ms";
+	public static final String SpoutKafkaDataCharset = "pike.spout.kafka.data.charset"; // string
+	public static final String SpoutKafkaDataFieldSeparator = "pike.spout.kafka.data.field_separator"; // string
+	public static final String SpoutKafkaPrintQueueData = "pike.spout.kafka.print_queuedata"; // boolean
+	public static final String SpoutKafkaPrintEmitData = "pike.spout.kafka.print_emitdata"; // boolean
+	public static final String SpoutKafkaTimeoutMilliseconds = "pike.spout.kafka.data.timeout.milliseconds"; // integer
+	public static final String SpoutKafkaCheckTopologyselfKilled = "pike.spout.kafka.check_topologyself_killed"; // boolean
+	public static final String SpoutKafkaCheckKilledIntervalSeconds = "pike.spout.kafka.check_killed.interval_seconds"; // integer
+
+	//rabbitmq spout
 	public static final String SpoutRabbitmqPrefechCount = "pike.spout.rabbitmq.prefetch.count";
 	public static final String SpoutRabbitmqHost = "pike.spout.rabbitmq.host"; // string
 	public static final String SpoutRabbitmqPort = "pike.spout.rabbitmq.port"; // integer
 	public static final String SpoutRabbitmqUsername = "pike.spout.rabbitmq.username"; // string
 	public static final String SpoutRabbitmqPassword = "pike.spout.rabbitmq.password"; // string
 	public static final String SpoutRabbitmqVirtualHost = "pike.spout.rabbitmq.vhost"; // string
-	public static final String SpoutRabbitmqDataCharset = "pike.spout.rabbitmq.data.charset"; // string
-	public static final String SpoutRabbitmqDataFieldSeparator = "pike.spout.rabbitmq.data.field_separator"; // string
-	public static final String SpoutRabbitmqPrintQueueData = "pike.spout.rabbitmq.print_queuedata"; // boolean
-	public static final String SpoutRabbitmqPrintEmitData = "pike.spout.rabbitmq.print_emitdata"; // boolean
-	public static final String SpoutRabbitmqTimeoutMilliseconds = "pike.spout.rabbitmq.data.timeout.milliseconds"; // integer
-	public static final String SpoutRabbitmqCheckTopologyselfKilled = "pike.spout.rabbitmq.check_topologyself_killed"; // boolean
-    public static final String SpoutRabbitmqCheckKilledIntervalSeconds = "pike.spout.rabbitmq.check_killed.interval_seconds"; // integer
     public static final String SpoutRabbitmqExchangeName = "pike.spout.rabbitmq.exchange_name"; // string
     public static final String SpoutRabbitmqRoutingKey = "pike.spout.rabbitmq.routing_key"; // string
     public static final String SpoutRabbitmqReconnectWaitSeconds = "pike.spout.rabbitmq.reconnect_waitseconds"; // integer
 
-    public static final String OutputCheckTopologyselfKilled = "pike.output.check_topologyself_killed"; // boolean
-    public static final String OutputCheckMinPeriodSeconds = "pike.output.check_min_period_seconds"; // integer
-	public static final String OutputFirstPeriodResult = "pike.output.first_period_output"; // boolean
+
+
+
+	//sink meta
+	public static final String OutputClassName = "pike.out.class.name";																					// string
+	public static final String OutputTargetName = "pike.output.target.name";
+	public static final String OutputCheckTopologyselfKilled = "pike.output.check_topologyself_killed"; // boolean
+	public static final String OutputCheckMinPeriodSeconds = "pike.output.check_min_period_seconds"; // integer
 	public static final String OutputLastPeriodResult = "pike.output.last_period_output"; // boolean
 	public static final String OutputDefaultTargets = "pike.output.targets.default"; // list
-																						// of
-																						// string
-	public static final String OutputTargetName = "pike.output.target.name";
-	public static final String OutputClassName = "pike.out.class.name";
+																					// of
 	public static final String OutputRollingHeader = "pike.output.rolling.header"; // boolean
-	public static final String OutputFileSuffix = "pike.output.file.suffix"; // string
-	public static final String OutputFileSingle = "pike.output.file.single"; // boolean
+
 	public static final String OutputFileFieldSeparator = "pike.output.file.field_separator"; // string
 	public static final String OutputFileDataSeparator = "pike.output.file.data_separator"; // string
 
+	//hdfs sink
 	public static final String OutputHdfsHost = "pike.output.hdfs.host"; // string
 	public static final String OutputHdfsDirectory = "pike.output.hdfs.path"; // string
 	public static final String OutputHdfsLocalDirectory = "pike.output.hdfs.localPath";	//string
@@ -299,8 +316,12 @@ public class Configuration extends Config {
 	public static final String OutputHdfsDataSeparator = "pike.output.hdfs.data_separator"; //string
 	public static final String OutputHdfsCompressed = "pike.output.hdfs.compressed"; //string
 
+	//text sink
 	public static final String OutputFSDirectory = "pike.output.fs.path"; // string
+	public static final String OutputFileSuffix = "pike.output.file.suffix"; // string
+	public static final String OutputFileSingle = "pike.output.file.single"; // boolean
 
+	//jdbc sink
 	public static final String OutputJdbcDriver = "pike.output.jdbc.driverClassName"; // string
 	public static final String OutputJdbcDbUser = "pike.output.jdbc.dbUser"; // string
 	public static final String OutputJdbcDbPassword = "pike.output.jdbc.dbPassword"; // string
@@ -315,15 +336,21 @@ public class Configuration extends Config {
 	public static final String SqlServerBulkWinDBFile = "pike.output.sqlserverbulk.winBulkPath"; // string
 	public static final String SqlServerBulkLinuxDBFile = "pike.output.sqlserverbulk.linuxDBFilePath"; // string
 	
-	//hbase 
+	//hbase sink
 	public final static String HBaseKeysConfigKey = "pike.output.hbase.hbasekeys";
 	public final static String HBaseTimestampConfigKey = "pike.output.hbase.timestampkey";
-	
+
+	//console sink
 	public final static String ConsoleSubmiterIP = "pike.output.console.ip";
 	public final static String ConsoleSubmiterPort = "pike.output.console.port";
 	public final static String ConsoleSubmiterID = "pike.output.console.id";
 	
-	
+
+
+
+
+
+
 	//Folder where store code table of cloud play, including country, area, city and isp
 	public final static String CloudplayIPDictionaryDir = "pike.cloudplay.ip.dictionary.dir";
 	
@@ -336,9 +363,6 @@ public class Configuration extends Config {
     // Kafka broker host
     public final static String KafkaBrokerList = "kafka.metadata.broker.list";
 
-	//public final static String XmlMetaDataFile = "pike.metadata.xmlfile";
-	public final static String MetaDataProviderClass = "pike.metadata.provider.class";
-	public final static String SpoutGeneratorClass = "pike.spout.generator.class";
 
-	public final static String SpoutLocalTextFile = "pike.spout.local.textfile";
+
 }

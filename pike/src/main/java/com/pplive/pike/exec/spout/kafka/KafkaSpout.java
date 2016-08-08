@@ -112,19 +112,19 @@ public class KafkaSpout extends PikeBatchSpout{
         this._topologyId = Configuration.getString(conf, Configuration.STORM_ID);
         this._pikeTopologyClient = PikeTopologyClient.getConfigured(conf);
         
-        final String charset = Configuration.getString(conf, Configuration.SpoutRabbitmqDataCharset, "utf-8");
+        final String charset = Configuration.getString(conf, Configuration.SpoutKafkaDataCharset, "utf-8");
         this._dataCharset = Charset.forName(charset);
         
         this._zkServers = Configuration.getString(conf, Configuration.SpoutKafkaZKServers);
         this._zkSessionTimeoutMs = Configuration.getString(conf, Configuration.SpoutKafkaZKSessionTimeout, "60000");
         
-        this._fieldSeparator = Configuration.getString(conf, Configuration.SpoutRabbitmqDataFieldSeparator, "\t");
-        this._timeoutMilliseconds = Configuration.getString(conf, Configuration.SpoutRabbitmqTimeoutMilliseconds, "10000");
-        this._printQueueData = Configuration.getBoolean(conf, Configuration.SpoutRabbitmqPrintQueueData);
-        this._printEmitData = Configuration.getBoolean(conf, Configuration.SpoutRabbitmqPrintEmitData);
+        this._fieldSeparator = Configuration.getString(conf, Configuration.SpoutKafkaDataFieldSeparator, "\t");
+        this._timeoutMilliseconds = Configuration.getString(conf, Configuration.SpoutKafkaTimeoutMilliseconds, "10000");
+        this._printQueueData = Configuration.getBoolean(conf, Configuration.SpoutKafkaPrintQueueData);
+        this._printEmitData = Configuration.getBoolean(conf, Configuration.SpoutKafkaPrintEmitData);
         
-        this._checkSelfKilled = Configuration.getBoolean(conf, Configuration.SpoutRabbitmqCheckTopologyselfKilled, true);
-        this._checkKilledIntervalSeconds = Configuration.getInt(conf, Configuration.SpoutRabbitmqCheckKilledIntervalSeconds, 15);
+        this._checkSelfKilled = Configuration.getBoolean(conf, Configuration.SpoutKafkaCheckTopologyselfKilled, true);
+        this._checkKilledIntervalSeconds = Configuration.getInt(conf, Configuration.SpoutKafkaCheckKilledIntervalSeconds, 15);
         this._outputFirstPeriod = Configuration.getBoolean(conf, Configuration.OutputFirstPeriodResult, false);
         
     }

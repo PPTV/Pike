@@ -11,7 +11,7 @@ To help pike development you are encouraged to provide:
 - pull requests for new features
 
 #Building from source
-Pike sql parser is based on [pike-jsqlparser](https://github.com/PPTV-BIP/Pike-JSqlParser/wiki), build pike-jsqlparser first.
+Pike sql parser  depends on [pike-jsqlparser](https://github.com/PPTV/Pike-JSqlParser/wiki), install pike-jsqlparser in local repo first.
 
 Building pike is rather simple under root directory by running:
 

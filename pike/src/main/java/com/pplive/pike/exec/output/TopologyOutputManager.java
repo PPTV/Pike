@@ -131,8 +131,6 @@ public class TopologyOutputManager {
 
 		}
 
-
-
         int nOutput = 0;
         for (OutputTarget t : outputTargets) {
             OutputContext outputCtx = outputContexts.get(nOutput);

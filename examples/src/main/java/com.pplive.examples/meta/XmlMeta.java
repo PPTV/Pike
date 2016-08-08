@@ -25,6 +25,7 @@ public class XmlMeta {
         contextBuilder = new PikeContextBuilder(config);
         contextBuilder.withSpoutGenerator(LocalTextFileSpoutGenerator.class);
 
+
         String topologyName = "sm_live_vv_5s";
         String sql = "withperiod 5s select channel, count(*) as vv from dol_smart group by channel";
         contextBuilder.withSql(sql).withTopologyName(topologyName);
