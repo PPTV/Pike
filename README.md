@@ -1,4 +1,4 @@
-# pike
+# Pike
 pike is a SQL statement on Storm, like hive on hadoop. It translates SQL to Storm topology.
 
 
