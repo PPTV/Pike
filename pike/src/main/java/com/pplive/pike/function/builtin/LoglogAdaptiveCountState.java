@@ -8,7 +8,6 @@ import com.clearspring.analytics.hash.MurmurHash;
 import com.clearspring.analytics.stream.cardinality.CardinalityMergeException;
 import com.clearspring.analytics.stream.cardinality.ICardinality;
 import com.clearspring.analytics.stream.cardinality.LinearCounting;
-import com.clearspring.analytics.stream.cardinality.AdaptiveCounting.Builder;
 import com.clearspring.analytics.util.IBuilder;
 
 // AdaptiveCounting is not Serializable, so we have to create a wrapper
@@ -37,7 +36,7 @@ class SerializableAdaptiveCounting extends AdaptiveCounting implements Serializa
     }
 }
 
-final class LoglogAdaptiveCountState implements Serializable {
+public final class LoglogAdaptiveCountState implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

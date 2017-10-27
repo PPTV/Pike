@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.pplive.pike.function.builtin.*;
 import storm.trident.operation.CombinerAggregator;
 import storm.trident.operation.ReducerAggregator;
 import storm.trident.tuple.TridentTuple;
@@ -17,17 +18,6 @@ import com.pplive.pike.base.AggregateMode;
 import com.pplive.pike.base.CaseIgnoredString;
 import com.pplive.pike.base.HashFailThrower;
 import com.pplive.pike.base.Period;
-import com.pplive.pike.function.builtin.Avg;
-import com.pplive.pike.function.builtin.BuiltinAggBase;
-import com.pplive.pike.function.builtin.Count;
-import com.pplive.pike.function.builtin.LinearCount;
-import com.pplive.pike.function.builtin.LoglogAdaptiveCount;
-import com.pplive.pike.function.builtin.MaxDouble;
-import com.pplive.pike.function.builtin.MaxLong;
-import com.pplive.pike.function.builtin.MinDouble;
-import com.pplive.pike.function.builtin.MinLong;
-import com.pplive.pike.function.builtin.SumDouble;
-import com.pplive.pike.function.builtin.SumLong;
 import com.pplive.pike.generator.trident.ICombinable;
 import com.pplive.pike.generator.trident.ICombineReducible;
 import com.pplive.pike.generator.trident.IReducible;
@@ -209,7 +199,8 @@ final class BuiltinAggregatorExpression extends AggregateExpression {
 		if (this._funcName.equalsString("COUNT") 
 			|| this._funcName.equalsString("LinearCount")
 			|| this._funcName.equalsString("LinearCountEx")
-			|| this._funcName.equalsString("LoglogAdaptiveCount")){
+			|| this._funcName.equalsString("LoglogAdaptiveCount")
+			|| this._funcName.equalsString("HyperLoglogCount")) {
 			return Long.class;
 		}
 		
@@ -247,13 +238,14 @@ final class BuiltinAggregatorExpression extends AggregateExpression {
 				|| this._funcName.equalsString("MIN")
 				|| this._funcName.equalsString("LinearCount")
 				|| this._funcName.equalsString("LinearCountEx")
-				|| this._funcName.equalsString("LoglogAdaptiveCount");
+				|| this._funcName.equalsString("LoglogAdaptiveCount")
+				|| this._funcName.equalsString("HyperLoglogCount");
 	}
 	
 	@Override
 	public boolean isCombineReducible() {
 		return this._distinct && isCombinable() == false;
-	}
+	} //count(distinct) sum(distinct)
 	
 	@Override
 	public ICombinable<?, ?> createCombinable() {
@@ -267,7 +259,8 @@ final class BuiltinAggregatorExpression extends AggregateExpression {
 			return Count.createCombinable(this._params);
 		}
 		
-		if (this._funcName.equalsString("LinearCount") || this._funcName.equalsString("LinearCountEx") || this._funcName.equalsString("LoglogAdaptiveCount")){
+		if (this._funcName.equalsString("LinearCount") || this._funcName.equalsString("LinearCountEx") ||
+				this._funcName.equalsString("LoglogAdaptiveCount") || this._funcName.equalsString("HyperLoglogCount")){
 			assert this._params.size() >= 2;
 			AbstractExpression expr = this._params.get(0);
 			assert expr instanceof ConstantExpression && expr.exprType() == Integer.class;
@@ -279,13 +272,17 @@ final class BuiltinAggregatorExpression extends AggregateExpression {
 				params.add(this._params.get(n));
 			}
 			if (this._funcName.equalsString("LinearCount") ) {
+				//val is max cardinality, estimates below 1%
 				return LinearCount.createCombinable(val, params);
-			}
-			else if (this._funcName.equalsString("LinearCountEx") ) {
+			} else if (this._funcName.equalsString("LinearCountEx") ) {
+				//val is length of bytes array for bucket, bucket number is 8*val
 				return LinearCount.createCombinableEx(val, params);
-			}
-			else {
+			} else if (this._funcName.equalsString("LoglogAdaptiveCount")){
+				// 1 << val is the number of bucket
 				return LoglogAdaptiveCount.createCombinable(val, params);
+			} else {
+				// 1 << val is the number of bucket
+				return HyperLoglogCount.createCombinable(val, params);
 			}
 		}
 		
@@ -389,6 +386,7 @@ final class BuiltinAggregatorExpression extends AggregateExpression {
 		new CaseIgnoredString("LinearCount"),
 		new CaseIgnoredString("LinearCountEx"),
 		new CaseIgnoredString("LoglogAdaptiveCount"),
+		new CaseIgnoredString("HyperLoglogCount"),
 	};
 	
 	public static boolean isBuiltinAggregator(String funcName) {

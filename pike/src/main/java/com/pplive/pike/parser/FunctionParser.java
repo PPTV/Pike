@@ -113,7 +113,8 @@ class FunctionParser {
 		if(fn.equalsString("COUNT")){
 			return parseCount(function);
 		}
-		if(fn.equalsString("LinearCount") || fn.equalsString("LinearCountEx") || fn.equalsString("LoglogAdaptiveCount")){
+		if(fn.equalsString("LinearCount") || fn.equalsString("LinearCountEx") || fn.equalsString("LoglogAdaptiveCount")
+				|| fn.equalsString("HyperLoglogCount")){
 			return parseLinearOrLoglogCount(function);
 		}
 		else{
@@ -211,7 +212,7 @@ class FunctionParser {
 		}
 		else {
 			Integer val = (Integer)((ConstantExpression)firstExpr).eval(null);
-			if (fn.equalsString("LoglogAdaptiveCount") && val >= 32){
+			if ((fn.equalsString("LoglogAdaptiveCount")|| fn.equalsString("HyperLoglogCount")) && val >= 32){
 				addError(new SemanticErrorException(String.format("function %s() first parameter must be < 32", fn)));
 			}
 		}
